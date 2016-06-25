@@ -96,11 +96,11 @@ def work_headers(item):
             header_table[header_id] = [site_id, actual_header_name_id, actual_header_value_id]
 
 def get_dictsites(filename):
-    dictsites = {}
+    dictsites = []
     with open(filename, 'rU') as f:
-        reader = csv.DictReader(f)
+        reader = csv.reader(f, delimiter=',')
         for row in reader:
-            dictsites[row['rank']] = row['site']
+            dictsites.append(row)
     return dictsites
 
 def populate_mysql(site_table, header_name_table, header_value_table, header_table):
@@ -168,7 +168,8 @@ def main():
     while (start < sites):
         print 'Thread pool', thread, '(', start, '-', start+num_threads, ')'
         thread += 1
-        threads = [gevent.spawn(work_headers, item) for item in dictsites.items()[start:start+num_threads]]
+        threads = [gevent.spawn(work_headers, item) for item in dictsites[start:start+num_threads]]
+        #threads = [gevent.spawn(work_headers, item) for item in dictsites.items()[start:start+num_threads]]
         gevent.joinall(threads)
         start += num_threads
     print '\nConnections summary', '\n', 'https:', chttps, '\n', 'http:', chttp, '\n', 'error:', cerror
