@@ -38,7 +38,7 @@ def connection(url):
     req.add_header('User-Agent', settings['http']['user_agent'])
     req.add_header('Origin', 'http://a.com')
     try:
-        response = urllib2.urlopen(req, timeout=3)
+        response = urllib2.urlopen(req, timeout=timeout)
     except urllib2.HTTPError as error:
         return error.geturl(), error.getcode(), error.info().items()
     except urllib2.URLError as error:
@@ -152,6 +152,7 @@ def populate_mysql(site_table, header_name_table, header_value_table, header_tab
 
 def main():
     __init__()
+    global timeout
     parser = argparse.ArgumentParser(
         description='Headers will get all response headers from Alexa top sites.'
     )
@@ -168,10 +169,18 @@ def main():
         default=settings['general']['thread_number'],
         help='Number of threads to make parallel request.'
     )
+    parser.add_argument(
+        '-i',
+        '--timeout',
+        type=float,
+        default=settings['http']['http_timeout'],
+        help='Number of seconds for HTTP connection timeout.'
+    )
     args = parser.parse_args()
 
     filename = args.filename
     num_threads = args.threads
+    timeout = args.timeout
     dictsites = get_dictsites(filename)
     sites = len(dictsites)
     start = 0
