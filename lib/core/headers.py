@@ -36,7 +36,7 @@ def load_config():
 def connection(url):
     req = urllib2.Request(url)
     req.add_header('User-Agent', settings['http']['user_agent'])
-    req.add_header('Origin', 'http://a.com')
+    req.add_header('Origin', settings['http']['origin'])
     try:
         response = urllib2.urlopen(req, timeout=timeout)
     except urllib2.HTTPError as error:
