@@ -1,4 +1,5 @@
-## This project has migrated to this new github https://github.com/oshp/headers/
+### This project has migrated to this new github https://github.com/oshp/headers/
+### <br>
 
 <a href="https://codeclimate.com/github/amenezes/headers"><img src="https://codeclimate.com/github/amenezes/headers/badges/gpa.svg" /></a>
 
