@@ -1,3 +1,5 @@
+## This project has migrated to this new github https://github.com/oshp/headers/
+
 <a href="https://codeclimate.com/github/amenezes/headers"><img src="https://codeclimate.com/github/amenezes/headers/badges/gpa.svg" /></a>
 
 ## HTTP response headers
